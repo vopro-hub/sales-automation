@@ -36,12 +36,10 @@ export default function DashboardLayout() {
           <Link to="/logs" onClick={closeMenu}>Logs</Link>
           <Link to="/analytics" onClick={closeMenu}>Analytics</Link>
           <Link to="/settings" onClick={closeMenu}>Settings</Link>
-
-        </nav>
-
-        <button className="logout" onClick={logout}>
+          <button className="logout" onClick={logout}>
           Logout
         </button>
+        </nav>
 
       </aside>
 

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { fetchOverview } from "../../api/dashboard";
 import "../../styles/overview.css";
+import useAuth from "../../hooks/hook";
 
 const Overview = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     const loadData = () => {
@@ -12,7 +14,7 @@ const Overview = () => {
         .then(setData)
         .finally(() => setLoading(false));
     };
-
+    
     loadData();
     const interval = setInterval(loadData, 30000);
 

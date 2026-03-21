@@ -16,6 +16,15 @@ User = get_user_model()
 class ManualLeadCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
+    def get(self, request):
+
+        agents = User.objects.filter(
+            tenant=request.user.tenant,
+            role="agent"
+        ).values("id", "staff_ID", "email")
+
+        return Response(agents)
+
     def post(self, request):
 
         data = request.data

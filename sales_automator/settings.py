@@ -25,6 +25,9 @@ AUTH_USER_MODEL = "core.User"
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-&c3lao$muqjtrmg9dr_iqrgn1zfcwjx*_1#*(_rnak!hsn5n@f'
 
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = []

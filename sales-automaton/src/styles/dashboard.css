@@ -20,10 +20,11 @@
 
 .dashboard {
   display: flex;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   background: var(--page-bg);
+  box-sizing: border-box;
 }
 
 /* ===============================
@@ -48,7 +49,11 @@
   flex-direction: column;
   gap: 10px;
   overflow-y: auto;
-  max-height: calc(100vh - 150px);
+  height: 95%;
+  position: fixed;
+  width: var(--sidebar-width);
+  box-sizing: border-box;
+  padding-top: 50px;
 }
 
 /* nav links */
@@ -68,6 +73,7 @@
 /* logout button */
 
 .sidebar button.logout {
+  width: auto;
   margin-top: auto;
   padding: 10px;
   border: none;
@@ -142,6 +148,7 @@
     top: 0;
     height: 100%;
     z-index: 1000;
+
   }
 
   .sidebar.open {

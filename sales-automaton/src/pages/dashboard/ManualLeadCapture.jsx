@@ -23,9 +23,14 @@ export default function ManualLeadCapture() {
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    api.get("/agents/list/").then(res => {
-      setAgents(res.data);
-    });
+    if (user.role === "manager"){
+      api.get("/leads/manual/lead/capture/")
+      .then(res => {
+        setAgents(res.data);
+      });
+   
+    }
+    
 
   }, []);
 
@@ -127,7 +132,7 @@ export default function ManualLeadCapture() {
           <option value="qualified">Qualified</option>
         </select>
 
-        {user}
+        
         {user.role === "manager" && (
           <select
             name="assigned_agent_id"
@@ -153,18 +158,19 @@ export default function ManualLeadCapture() {
           required
         />
 
-        <label className="manual-checkbox">
+        <div className="aistart-checkbox">
+          <label className="manual-checkbox">
+             <input
+               className="checkbox"
+               type="checkbox"
+               name="start_ai"
+               checked={form.start_ai}
+               onChange={handleChange}
+             />
+           </label>
+           <span><small>Start AI qualification immediately</small></span>
 
-          <input
-            type="checkbox"
-            name="start_ai"
-            checked={form.start_ai}
-            onChange={handleChange}
-          />
-
-          <span>Start AI qualification immediately</span>
-
-        </label>
+        </div>
 
         <button
           className="manual-lead-btn"
