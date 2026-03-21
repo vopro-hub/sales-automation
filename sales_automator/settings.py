@@ -27,6 +27,8 @@ SECRET_KEY = 'django-insecure-&c3lao$muqjtrmg9dr_iqrgn1zfcwjx*_1#*(_rnak!hsn5n@f
 
 CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
 CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+WPP_WEBHOOK_SECRET = "super-secure-webhook-secret"
+WPP_CONNECT_URL = "http://localhost:3001"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

@@ -1,54 +1,142 @@
-from django.shortcuts import render
+import json
 import hmac
 import hashlib
+import uuid
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+
 from django.conf import settings
-import json
-from django.http import JsonResponse, HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from core.models import Tenant
-from leads.models import Lead, Message
-from ai_engine.pipeline import handle_incoming_message
 from django_ratelimit.decorators import ratelimit
 
-@ratelimit(key="ip", rate="30/m", block=True) # Protect agains spam attacks, costly AI abuse and accidental loops
+from .models import WhatsAppSession
+from leads.models import Lead, Message
+from ai_engine.pipeline import handle_incoming_message
+
+from .services import create_session, get_qr_code
+
+
+class StartSessionView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        session_id = str(uuid.uuid4())
+
+        session = WhatsAppSession.objects.create(
+            tenant=request.user.tenant,
+            user=request.user,
+            session_id=session_id,
+            status="connecting"
+        )
+
+        create_session(session_id)
+
+        return Response({
+            "session_id": session_id
+        })
+
+
+class QRCodeView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, session_id):
+
+        qr = get_qr_code(session_id)
+
+        return Response({
+            "qr_code": qr.get("qr")
+        })
+
 @csrf_exempt
+@ratelimit(key="ip", rate="60/m", block=True)
 def whatsapp_webhook(request):
-    payload = json.loads(request.body)
+    """
+    Receives incoming WhatsApp messages from the WPPConnect gateway.
+    Routes the message to the correct tenant, lead, and AI pipeline.
+    """
 
-    from_number = payload["from"]
-    to_number = payload["to"]
-    text = payload["message"]["text"]
+    if request.method != "POST":
+        return JsonResponse({"status": "method_not_allowed"}, status=405)
 
-    tenant = Tenant.objects.get(
-        whatsapp_number=to_number,
-        is_active=True
-    )
+    if not verify_signature(request):
+        return HttpResponseForbidden("Invalid webhook signature")
 
+    try:
+        payload = json.loads(request.body)
+
+        session_id = payload.get("session")
+        from_number = payload.get("from")
+        text = payload.get("body")
+        is_group = payload.get("isGroupMsg", False)
+
+    except Exception:
+        return JsonResponse({"status": "invalid_payload"}, status=400)
+
+    # Ignore group messages
+    if is_group:
+        return JsonResponse({"status": "ignored_group"})
+
+    # Find the WhatsApp session
+    try:
+        session = WhatsAppSession.objects.select_related("tenant", "user").get(
+            session_id=session_id,
+            status="connected"
+        )
+    except WhatsAppSession.DoesNotExist:
+        return JsonResponse({"status": "unknown_session"}, status=404)
+
+    tenant = session.tenant
+    agent = session.user
+
+    # Normalize number
+    from_number = from_number.replace("@c.us", "")
+
+    # Get or create lead
     lead, _ = Lead.objects.get_or_create(
         tenant=tenant,
         phone=from_number
     )
 
+    # Save incoming message
     Message.objects.create(
         tenant=tenant,
         lead=lead,
         sender="lead",
-        content=text
+        content=text,
+        metadata={
+            "session_id": session_id,
+            "agent_id": agent.id
+        }
     )
 
-    handle_incoming_message(tenant, lead, text)
+    # Send to AI engine
+    handle_incoming_message(
+        tenant=tenant,
+        lead=lead,
+        message=text,
+        session=session,
+        agent=agent
+    )
 
     return JsonResponse({"status": "ok"})
 
-
 def verify_signature(request):
-    signature = request.headers.get("X-Hub-Signature-256")
+    """
+    Verify webhook authenticity from the WPPConnect gateway.
+    """
+
+    signature = request.headers.get("X-WPP-Signature")
+    if not signature:
+        return False
+
     body = request.body
 
     expected = hmac.new(
-        settings.WHATSAPP_TOKEN.encode(),
+        settings.WPP_WEBHOOK_SECRET.encode(),
         body,
         hashlib.sha256
     ).hexdigest()
 
-    return signature == f"sha256={expected}"
+    return hmac.compare_digest(signature, expected)
