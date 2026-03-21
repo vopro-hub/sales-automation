@@ -1,0 +1,201 @@
+/* =================================
+   White Label Variables
+================================= */
+
+:root {
+  --brand-primary: #2563eb;
+  --brand-primary-light: #eff6ff;
+
+  --text-main: #111827;
+  --text-muted: #6b7280;
+
+  --border-color: #e5e7eb;
+
+  --bg-page: #f9fafb;
+  --bg-card: #ffffff;
+
+  --success-bg: #ecfdf5;
+  --success-text: #065f46;
+
+  --error-bg: #fef2f2;
+  --error-text: #991b1b;
+
+  --radius: 8px;
+}
+
+/* =================================
+   Page Layout (FULL WIDTH)
+================================= */
+
+.onboard-page {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg-page);
+
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+/* =================================
+   Container
+================================= */
+
+.onboard-card {
+  width: 100%;
+  max-width: 1200px; /* large SaaS layout */
+  margin: 0 auto;
+
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+
+  border-radius: var(--radius);
+  padding: 40px;
+
+  box-shadow: 0 6px 24px rgba(0,0,0,0.04);
+}
+
+/* =================================
+   Title
+================================= */
+
+.onboard-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--text-main);
+
+  margin-bottom: 28px;
+}
+
+/* =================================
+   Form Layout
+================================= */
+
+.onboard-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* full width fields */
+
+.onboard-full {
+  grid-column: span 2;
+}
+
+/* =================================
+   Inputs
+================================= */
+
+.onboard-input,
+.onboard-textarea {
+  width: 100%;
+  padding: 12px;
+
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+
+  font-size: 14px;
+
+  outline: none;
+  transition: border 0.2s;
+}
+
+.onboard-input:focus,
+.onboard-textarea:focus {
+  border-color: var(--brand-primary);
+}
+
+.onboard-textarea {
+  resize: vertical;
+}
+
+/* =================================
+   Color Picker
+================================= */
+
+.onboard-color {
+  width: 70px;
+  height: 40px;
+
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+
+  cursor: pointer;
+}
+
+/* =================================
+   Button
+================================= */
+
+.onboard-button {
+  grid-column: span 2;
+
+  padding: 14px;
+
+  border: none;
+  border-radius: var(--radius);
+
+  background: var(--brand-primary);
+  color: white;
+
+  font-size: 15px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+.onboard-button:hover {
+  opacity: 0.9;
+}
+
+.onboard-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =================================
+   Alerts
+================================= */
+
+.onboard-error {
+  grid-column: span 2;
+
+  background: var(--error-bg);
+  color: var(--error-text);
+
+  padding: 12px;
+  border-radius: var(--radius);
+}
+
+.onboard-success {
+  grid-column: span 2;
+
+  background: var(--success-bg);
+  color: var(--success-text);
+
+  padding: 12px;
+  border-radius: var(--radius);
+}
+
+/* =================================
+   Responsive
+================================= */
+
+@media (max-width: 900px) {
+
+  .onboard-form {
+    grid-template-columns: 1fr;
+  }
+
+  .onboard-full,
+  .onboard-button,
+  .onboard-error,
+  .onboard-success {
+    grid-column: span 1;
+  }
+
+  .onboard-card {
+    padding: 24px;
+  }
+
+}

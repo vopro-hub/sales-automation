@@ -1,0 +1,133 @@
+/* ================================
+   White Label Variables
+================================ */
+
+:root {
+  --brand-primary: #2563eb;
+
+  --text-main: #111827;
+  --text-muted: #6b7280;
+
+  --border-color: #e5e7eb;
+
+  --bg-page: #f9fafb;
+  --bg-card: #ffffff;
+
+  --row-hover: #f3f4f6;
+
+  --radius: 8px;
+}
+
+/* ================================
+   Page Layout
+================================ */
+
+.audit-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: var(--bg-page);
+
+  display: flex;
+  justify-content: center;
+}
+
+/* ================================
+   Container
+================================ */
+
+.audit-container {
+  width: 100%;
+  max-width: 1000px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+
+.audit-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: var(--text-main);
+}
+
+/* ================================
+   Table
+================================ */
+
+.audit-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.audit-table thead {
+  background: #f9fafb;
+}
+
+.audit-table th {
+  text-align: left;
+  padding: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.audit-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+.audit-table tbody tr:hover {
+  background: var(--row-hover);
+}
+
+/* ================================
+   Object Cell Styling
+================================ */
+
+.audit-object {
+  font-family: monospace;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ================================
+   Message Column
+================================ */
+
+.audit-message {
+  max-width: 280px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ================================
+   Responsive
+================================ */
+
+@media (max-width: 768px) {
+
+  .audit-container {
+    padding: 20px;
+  }
+
+  .audit-title {
+    font-size: 20px;
+  }
+
+  .audit-table th,
+  .audit-table td {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+}

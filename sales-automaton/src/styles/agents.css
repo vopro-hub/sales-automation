@@ -1,0 +1,106 @@
+/* Container */
+
+.agents-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+
+/* Page Title */
+
+.agents-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #111827;
+}
+
+
+/* Table wrapper */
+
+.agents-table-wrapper {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow-x: auto;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+
+/* Table */
+
+.agents-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+
+/* Header */
+
+.agents-table thead {
+  background: #f9fafb;
+}
+
+.agents-table th {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+
+/* Body */
+
+.agents-table td {
+  padding: 14px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #f3f4f6;
+  color: #111827;
+}
+
+
+/* Alignment helpers */
+
+.agents-center {
+  text-align: center;
+}
+
+.agents-left {
+  text-align: left;
+}
+
+
+/* Row hover */
+
+.agents-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+
+/* Empty state */
+
+.agents-empty {
+  text-align: center;
+  padding: 40px;
+  color: #6b7280;
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+  .agents-title {
+    font-size: 22px;
+  }
+
+  .agents-table th,
+  .agents-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+}

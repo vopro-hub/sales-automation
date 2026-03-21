@@ -1,0 +1,203 @@
+/* ===============================
+   White Label Variables
+================================ */
+
+:root {
+
+  --brand-primary: #2563eb;
+
+  --sidebar-bg: #ffffff;
+  --sidebar-border: #e5e7eb;
+
+  --text-main: #111827;
+  --text-muted: #6b7280;
+
+  --bg-main: #f9fafb;
+
+  --radius: 8px;
+}
+
+/* ===============================
+   Layout Container
+================================ */
+
+.analytics-layout {
+
+  display: flex;
+  height: 100vh;
+  width: 100%;
+
+  background: var(--bg-main);
+}
+
+/* ===============================
+   Sidebar
+================================ */
+
+.analytics-sidebar {
+
+  width: 240px;
+  min-width: 240px;
+
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+
+  display: flex;
+  flex-direction: column;
+
+  transition: transform 0.25s ease;
+}
+
+/* ===============================
+   Sidebar Header
+================================ */
+
+.analytics-header {
+
+  font-weight: 600;
+  font-size: 18px;
+
+  padding: 18px;
+
+  border-bottom: 1px solid var(--sidebar-border);
+}
+
+/* ===============================
+   Navigation
+================================ */
+
+.analytics-nav {
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+
+  padding: 16px;
+
+  overflow-y: auto;
+}
+
+/* ===============================
+   Nav Links
+================================ */
+
+.nav-link {
+
+  padding: 10px 12px;
+
+  border-radius: var(--radius);
+
+  text-decoration: none;
+
+  color: var(--text-main);
+
+  font-size: 14px;
+}
+
+.nav-link:hover {
+
+  background: #f3f4f6;
+}
+
+.nav-link.active {
+
+  background: var(--brand-primary);
+  color: white;
+}
+
+/* ===============================
+   Main Content
+================================ */
+
+.analytics-main {
+
+  flex: 1;
+
+  padding: 24px;
+
+  overflow-y: auto;
+}
+
+/* ===============================
+   Hamburger Button
+================================ */
+
+.analytics-menu-button {
+
+  display: none;
+
+  position: fixed;
+
+  top: 14px;
+  left: 14px;
+
+  z-index: 1200;
+
+  background: white;
+
+  border: 1px solid var(--sidebar-border);
+
+  padding: 8px 10px;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+/* ===============================
+   Close Button
+================================ */
+
+.analytics-close {
+
+  display: none;
+
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  font-size: 20px;
+
+  background: none;
+  border: none;
+
+  cursor: pointer;
+}
+
+/* ===============================
+   Mobile Responsive
+================================ */
+
+@media (max-width: 900px) {
+
+  .analytics-menu-button {
+    display: block;
+  }
+
+  .analytics-sidebar {
+
+    position: fixed;
+
+    height: 100%;
+
+    top: 0;
+    left: 0;
+
+    transform: translateX(-100%);
+
+    z-index: 1100;
+  }
+
+  .analytics-sidebar.open {
+
+    transform: translateX(0);
+  }
+
+  .analytics-close {
+
+    display: block;
+  }
+
+}

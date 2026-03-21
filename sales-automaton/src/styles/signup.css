@@ -1,0 +1,189 @@
+/* ============================= */
+/* WHITE LABEL THEME VARIABLES   */
+/* ============================= */
+
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1e40af;
+  --background-color: #f9fafb;
+  --card-background: #ffffff;
+  --text-color: #111827;
+  --muted-text: #6b7280;
+  --border-color: #e5e7eb;
+  --error-color: #dc2626;
+  --input-focus-ring: rgba(37, 99, 235, 0.3);
+
+  --border-radius: 10px;
+  --card-radius: 16px;
+
+  --transition-speed: 0.2s;
+  --font-family: "Inter", sans-serif;
+}
+
+/* ============================= */
+/* BASE LAYOUT */
+/* ============================= */
+
+.auth {
+  min-height: 100vh;
+  background: var(--background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family);
+  padding: 20px;
+}
+
+.auth form {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card-background);
+  padding: 40px;
+  border-radius: var(--card-radius);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.auth h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+/* ============================= */
+/* INPUTS */
+/* ============================= */
+
+.auth input,
+.auth select {
+  padding: 12px 14px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  font-size: 14px;
+  transition: all var(--transition-speed);
+  outline: none;
+  background: white;
+  width: 100%;
+}
+
+.auth input:focus,
+.auth select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--input-focus-ring);
+}
+
+/* ============================= */
+/* BUTTON */
+/* ============================= */
+
+.auth button {
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: var(--border-radius);
+  border: none;
+  background: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+.auth button:hover {
+  background: var(--primary-hover);
+}
+
+.auth button:active {
+  transform: scale(0.98);
+}
+
+/* ============================= */
+/* ERROR STYLES */
+/* ============================= */
+
+.error {
+  font-size: 12px;
+  color: var(--error-color);
+  margin-top: -8px;
+  margin-bottom: 4px;
+}
+
+/* ============================= */
+/* ANIMATION */
+/* ============================= */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================= */
+/* 📱 MOBILE (Below 480px) */
+/* ============================= */
+
+@media (max-width: 480px) {
+  .auth {
+    padding: 15px;
+  }
+
+  .auth form {
+    padding: 25px 20px;
+    border-radius: 12px;
+  }
+
+  .auth h2 {
+    font-size: 18px;
+  }
+
+  .auth input,
+  .auth select {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  .auth button {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+
+/* ============================= */
+/* 📱📲 LARGE PHONES / SMALL TABLETS */
+/* ============================= */
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .auth form {
+    max-width: 500px;
+    padding: 35px;
+  }
+}
+
+/* ============================= */
+/* 💻 TABLETS */
+/* ============================= */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .auth form {
+    max-width: 520px;
+  }
+}
+
+/* ============================= */
+/* 🖥 LARGE SCREENS */
+/* ============================= */
+
+@media (min-width: 1400px) {
+  .auth form {
+    max-width: 480px;
+  }
+}

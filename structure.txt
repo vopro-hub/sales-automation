@@ -1,0 +1,63 @@
+
+   
+React (REST / WebSocket)
+   |
+   Frontend
+   |
+   ├── src/
+   │    ├── pages/
+   │    │   ├── Overview.jsx
+   │    │   ├── Leads.jsx
+   │    │   ├── Escalations.jsx
+   │    │
+   │    ├── components/
+   │    │   ├── StatCard.jsx
+   │    │   ├── LeadsTable.jsx
+   │    │
+   │     └── api/
+   │         └── dashboard.js 
+   │
+   v
+Django API (DRF)
+   |
+   backend/
+   │
+   ├── core/
+   │   ├── models.py        # Tenant, User
+   │   ├── 
+   │
+   ├── leads/
+   │   ├── models.py        # Lead, Message, Qualification
+   │   ├── scoring.py
+   │   ├── tasks.py         # Celery follow-ups
+   │
+   ├── ai_engine/
+   │   ├── pipelin.py
+   │   ├── responder.py
+   │   ├── Qualification.py
+   │
+   ├── whatsapp/
+   │   ├── .py
+   │   ├── views.py
+   │   ├── sender.py
+   │
+   ├── bookings/
+   │   ├── models.py
+   │   ├── logic.py
+   │
+   ├── dashboard/
+   │   ├── views.py
+   │   ├── 
+   │   ├── 
+   │
+   ├── notifications/
+   │   ├── 
+   │   ├── agent.py
+   │   ├── 
+   │
+   └── settings/
+   |
+Database (PostgreSQL)
+   |
+Background Jobs (Celery + Redis)
+

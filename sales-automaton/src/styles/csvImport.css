@@ -1,0 +1,123 @@
+/* ================================
+   White Label Variables
+================================ */
+
+:root {
+  --brand-primary: #2563eb;
+  --brand-primary-light: #eff6ff;
+
+  --text-main: #111827;
+  --text-muted: #6b7280;
+
+  --border-color: #e5e7eb;
+  --bg-page: #f9fafb;
+  --bg-card: #ffffff;
+
+  --radius: 8px;
+}
+
+/* ================================
+   Page Layout
+================================ */
+
+.csv-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-page);
+  padding: 20px;
+}
+
+/* ================================
+   Card Container
+================================ */
+
+.csv-container {
+  width: 100%;
+  max-width: 500px;
+  background: var(--bg-card);
+  padding: 32px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+}
+
+.csv-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: var(--text-main);
+  text-align: center;
+}
+
+/* ================================
+   File Input
+================================ */
+
+.csv-file-input {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 10px;
+  font-size: 14px;
+  background: white;
+  margin-bottom: 16px;
+}
+
+/* ================================
+   Import Button
+================================ */
+
+.csv-button {
+  width: 100%;
+  padding: 12px;
+  background: var(--brand-primary);
+  border: none;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.csv-button:hover {
+  opacity: 0.9;
+}
+
+.csv-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ================================
+   Success Result
+================================ */
+
+.csv-result {
+  margin-top: 20px;
+  padding: 14px;
+  background: #ecfdf5;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius);
+  color: #065f46;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ================================
+   Responsive
+================================ */
+
+@media (max-width: 600px) {
+
+  .csv-container {
+    padding: 24px;
+  }
+
+  .csv-title {
+    font-size: 20px;
+  }
+
+}

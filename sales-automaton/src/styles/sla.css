@@ -1,0 +1,114 @@
+/* Main container */
+
+.sla-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+/* Page title */
+
+.sla-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+
+/* Table wrapper */
+
+.sla-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+
+/* Table */
+
+.sla-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+
+/* Header */
+
+.sla-table thead {
+  background: #f9fafb;
+}
+
+.sla-table th {
+  text-align: left;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+
+/* Rows */
+
+.sla-table td {
+  padding: 14px;
+  font-size: 14px;
+  color: #4b5563;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+
+/* Row hover */
+
+.sla-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+
+/* Severity styling */
+
+.sla-late-high {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.sla-late-medium {
+  color: #d97706;
+  font-weight: 600;
+}
+
+.sla-late-low {
+  color: #2563eb;
+}
+
+
+/* Loading */
+
+.sla-loading {
+  text-align: center;
+  padding: 30px;
+  color: #6b7280;
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+  .sla-title {
+    font-size: 20px;
+  }
+
+  .sla-table th,
+  .sla-table td {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+}
