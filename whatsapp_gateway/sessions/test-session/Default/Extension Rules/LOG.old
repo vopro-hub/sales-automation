@@ -1,2 +1,3 @@
-2026/03/22-00:23:22.658 acfb Creating DB /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/test-session/Default/Extension Rules since it was missing.
-2026/03/22-00:23:22.704 acfb Reusing MANIFEST /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/test-session/Default/Extension Rules/MANIFEST-000001
+2026/03/22-22:56:04.584 12d75 Reusing MANIFEST /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/test-session/Default/Extension Rules/MANIFEST-000001
+2026/03/22-22:56:04.584 12d75 Recovering log #3
+2026/03/22-22:56:04.584 12d75 Reusing old log /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/test-session/Default/Extension Rules/000003.log 

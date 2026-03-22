@@ -60,23 +60,68 @@ app.post("/sessions/start", async (req, res) => {
   }
 
   try {
+    const QRCode = require("qrcode");
+    
     sessions[session] = { client: null, qr: null };
-
+    
     const client = await wppconnect.create({
       session: session,
       folderNameToken: SESSION_FOLDER,
       headless: true,
       useChrome: true,
       autoClose: 0,
-      catchQR: (base64Qrimg) => {
-        sessions[session].qr = base64Qrimg;
-      },
-      statusFind: (statusSession) => {
-        console.log(`Session ${session} status:`, statusSession);
-      },
+      puppeteerOptions: {
+        args: [
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+          "--disable-dev-shm-usage"
+        ]
+      }
+    });
+    
+    console.log("✅ CLIENT CREATED");
+    
+    // ✅ assign immediately
+    sessions[session].client = client;
+    
+    /*
+    QR EVENT (THIS FIXES YOUR PROBLEM)
+    */
+    client.on("qr", async (qr) => {
+      console.log("✅ QR EVENT RECEIVED");
+    
+      try {
+        const base64 = await QRCode.toDataURL(qr);
+        sessions[session].qr = base64;
+    
+        console.log("QR STORED ✅");
+      } catch (err) {
+        console.error("QR conversion failed:", err);
+      }
+    });
+    
+    /*
+    CONNECTED EVENT
+    */
+    client.onStateChange((state) => {
+      console.log(`State change (${session}):`, state);
+    
+      if (state === "CONNECTED") {
+        console.log("✅ WHATSAPP CONNECTED");
+    
+        // Optional: clear QR AFTER connection
+        sessions[session].qr = null;
+      }
+    
+      if (
+        state === "CONFLICT" ||
+        state === "UNPAIRED" ||
+        state === "UNLAUNCHED"
+      ) {
+        client.useHere();
+      }
     });
 
-    sessions[session].client = client;
 
     /*
     HANDLE STATE CHANGES (AUTO RECONNECT)
@@ -135,17 +180,23 @@ app.post("/sessions/start", async (req, res) => {
 /*
 GET QR CODE
 */
+
 app.get("/sessions/qr/:session", (req, res) => {
   const session = req.params.session;
+  
+  const s = sessions[session];
 
-  if (!sessions[session]) {
+  if (!s) {
     return res.status(404).json({ error: "Session not found" });
   }
 
-  res.json({
-    qr: sessions[session].qr,
+  return res.json({
+    qr: s.qr,              // base64 image
+    connected: !!s.client && !s.qr
   });
 });
+
+
 
 /*
 SEND MESSAGE
@@ -220,6 +271,23 @@ async function restoreSessions() {
     console.log("No previous sessions to restore");
   }
 }
+
+app.get("/debug/:session", (req, res) => {
+  const session = req.params.session;
+
+  if (!sessions[session]) {
+    return res.status(404).json({ error: "Session not found" });
+  }
+
+  res.json({
+    session,
+    hasClient: !!sessions[session].client,
+    qrExists: !!sessions[session].qr,
+    qrPreview: sessions[session].qr
+      ? sessions[session].qr.substring(0, 50)
+      : null
+  });
+});
 
 /*
 START SERVER

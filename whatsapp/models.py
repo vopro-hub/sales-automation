@@ -11,7 +11,7 @@ class WhatsAppSession(models.Model):
     )
 
     tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     session_id = models.CharField(max_length=255, unique=True)
     phone_number = models.CharField(max_length=30, blank=True, null=True)

@@ -9,6 +9,7 @@ import Overview from "./pages/dashboard/Overview";
 import Escalations from "./pages/dashboard/Escalations";
 import Leads from "./pages/dashboard/Leads";
 import Billing from "./pages/dashboard/Billing";
+import WhatsAppConnect from "./pages/dashboard/WhatsAppConnect";
 import ManualLeadCapture from "./pages/dashboard/ManualLeadCapture";
 import CsvImport from "./pages/dashboard/CsvImport";
 import AuditLog from "./pages/dashboard/AuditLog";
@@ -37,6 +38,7 @@ export default function App() {
 
         <Route path="/" element={ <PrivateRoute> <DashboardLayout /> </PrivateRoute> }>
           <Route index element={<Overview />} />
+          <Route path="/whatsapp" element={<WhatsAppConnect />} />
           <Route path="/leads" element={<Leads />} />
           <Route path="/leads/new" element={<ManualLeadCapture />} />
           <Route path="/escalations" element={<Escalations />} />

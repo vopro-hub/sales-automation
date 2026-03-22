@@ -28,6 +28,7 @@ export default function DashboardLayout() {
         <nav>
 
           <Link to="/" onClick={closeMenu}>Overview</Link>
+          <Link to="/whatsapp" onClick={closeMenu}>Connect your WhatsApp to start receiving leads</Link>
           <Link to="/leads" onClick={closeMenu}>Leads</Link>
           <Link to="/billing" onClick={closeMenu}>Billing</Link>
           <Link to="/leads/new" onClick={closeMenu}>Add Lead</Link>

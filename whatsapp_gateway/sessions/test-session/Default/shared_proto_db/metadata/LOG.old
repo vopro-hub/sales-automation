@@ -1,2 +1,3 @@
-2026/03/22-00:23:22.733 acc5 Creating DB /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/test-session/Default/shared_proto_db/metadata since it was missing.
-2026/03/22-00:23:22.772 acc5 Reusing MANIFEST /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/test-session/Default/shared_proto_db/metadata/MANIFEST-000001
+2026/03/22-22:56:04.600 12d41 Reusing MANIFEST /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/test-session/Default/shared_proto_db/metadata/MANIFEST-000001
+2026/03/22-22:56:04.600 12d41 Recovering log #3
+2026/03/22-22:56:04.600 12d41 Reusing old log /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/test-session/Default/shared_proto_db/metadata/000003.log 

@@ -18,15 +18,31 @@ from ai_engine.pipeline import handle_incoming_message
 from .services import create_session, get_qr_code
 
 
-class StartSessionView(APIView):
+class StartWhatsAppSessionView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
+
+        user = request.user
+
+        existing = WhatsAppSession.objects.filter(user=user).first()
+
+        # If session exists and user didn't confirm relink
+        if existing and not request.data.get("force"):
+            return Response({
+                "has_session": True,
+                "message": "You already have a WhatsApp session. Relink?",
+            }, status=200)
+
+        # Delete old session if relinking
+        if existing:
+            existing.delete()
+
         session_id = str(uuid.uuid4())
 
-        session = WhatsAppSession.objects.create(
-            tenant=request.user.tenant,
-            user=request.user,
+        WhatsAppSession.objects.create(
+            tenant=user.tenant,
+            user=user,
             session_id=session_id,
             status="connecting"
         )
@@ -34,19 +50,26 @@ class StartSessionView(APIView):
         create_session(session_id)
 
         return Response({
-            "session_id": session_id
+            "session_id": session_id,
+            "has_session": False
         })
 
 
 class QRCodeView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, session_id):
+    def get(self, request):
 
-        qr = get_qr_code(session_id)
+        try:
+            session = WhatsAppSession.objects.get(user=request.user)
+        except WhatsAppSession.DoesNotExist:
+            return Response({"error": "No session"}, status=404)
 
+        qr = get_qr_code(session.session_id)
+       
         return Response({
-            "qr_code": qr.get("qr")
+            "qr": qr.get("qr"),
+            "status": session.status
         })
 
 @csrf_exempt
