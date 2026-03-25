@@ -1,2 +1,5 @@
 2026/03/23-12:26:15.532 19a47 Creating DB /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/d73bb679-0df2-42bd-8e37-a4c8f9857ab7/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
 2026/03/23-12:26:15.557 19a47 Reusing MANIFEST /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/d73bb679-0df2-42bd-8e37-a4c8f9857ab7/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/23-13:37:06.503 19a4e Level-0 table #5: started
+2026/03/23-13:37:06.557 19a4e Level-0 table #5: 1131787 bytes OK
+2026/03/23-13:37:06.568 19a4e Delete type=0 #3

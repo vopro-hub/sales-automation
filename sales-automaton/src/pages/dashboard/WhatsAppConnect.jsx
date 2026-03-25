@@ -3,7 +3,6 @@ import { io } from "socket.io-client";
 import api from "../../api/client";
 import QRCode from "qrcode";
 
-
 const socket = io("http://localhost:3001");
 
 export default function WhatsAppConnect() {
@@ -12,7 +11,7 @@ export default function WhatsAppConnect() {
   const [hasSession, setHasSession] = useState(false);
   const [connected, setConnected] = useState(false);
 
-  const sessionId = "default"; // 🔥 IMPORTANT: must match backend session
+  const [sessionId, setSessionId] = useState(null); // ✅ NEW (dynamic)
 
   /*
   START SESSION
@@ -22,10 +21,12 @@ export default function WhatsAppConnect() {
 
     try {
       const res = await api.post("/whatsapp/start/", {
-        session: sessionId,
         force
       });
 
+      // ✅ NEW: get sessionId from backend
+      const newSessionId = res.data.session_id;
+      setSessionId(newSessionId);
       if (res.data.has_session && !force) {
         setHasSession(true);
         setLoading(false);
@@ -43,9 +44,11 @@ export default function WhatsAppConnect() {
   FETCH QR (FALLBACK)
   */
   const fetchQR = async () => {
+    if (!sessionId) return; // ✅ NEW: prevent early calls
+
     try {
       const res = await api.get(`/whatsapp/qr/?session=${sessionId}`);
-      console.log("session is:", res.data.qr)
+
       if (res.data.qr) {
         setQr(res.data.qr);
       }
@@ -64,37 +67,42 @@ export default function WhatsAppConnect() {
   SOCKET LISTENERS (REAL-TIME)
   */
   useEffect(() => {
-    socket.on(`qr:${sessionId}`, (data) => {
+    if (!sessionId) return; // ✅ NEW
+
+    const qrEvent = `qr:${sessionId}`;
+    const connectedEvent = `connected:${sessionId}`;
+
+    socket.on(qrEvent, (data) => {
       console.log("QR RECEIVED (socket)");
       setQr(data.qr);
       setConnected(false);
     });
 
-    socket.on(`connected:${sessionId}`, () => {
+    socket.on(connectedEvent, () => {
       console.log("CONNECTED");
       setConnected(true);
       setQr(null);
     });
 
     return () => {
-      socket.off(`qr:${sessionId}`);
-      socket.off(`connected:${sessionId}`);
+      socket.off(qrEvent);
+      socket.off(connectedEvent);
     };
-  }, []);
+  }, [sessionId]); // ✅ NEW dependency
 
   /*
   POLLING (FALLBACK SAFETY)
   */
   useEffect(() => {
-    const interval = setInterval(fetchQR, 3000);
+    const interval = setInterval(fetchQR, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [sessionId]); // ✅ UPDATED dependency
 
   return (
     <div style={{ padding: "20px" }}>
       <h2>Connect WhatsApp</h2>
 
-      {!qr && !connected && !hasSession && (
+      {!qr && !connected && !hasSession && !sessionId && (
         <button onClick={() => startSession()}>
           Scan to link your WhatsApp
         </button>

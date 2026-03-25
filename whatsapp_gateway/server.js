@@ -90,13 +90,15 @@ app.post("/sessions/start", async (req, res) => {
       // ✅ ONLY QR HANDLER YOU NEED
       catchQR: async (qr) => {
         console.log("✅ QR RECEIVED");
+        sessions[session].qr = qr;
 
-        const QRCode = require("qrcode");
-        const base64 = await QRCode.toDataURL(qr);
+        io.emit(`qr:${session}`, { qr });
+        //const QRCode = require("qrcode");
+        //const base64 = await QRCode.toDataURL(qr);
 
-        sessions[session].qr = base64;
+        //sessions[session].qr = base64;
 
-        io.emit(`qr:${session}`, { qr: base64 });
+        //io.emit(`qr:${session}`, { qr: base64 });
       },
 
       statusFind: (status) => {
@@ -116,6 +118,12 @@ app.post("/sessions/start", async (req, res) => {
 
       if (state === "CONNECTED") {
         sessions[session].connected = true;
+        // 🔥 CALL DJANGO TO SAVE SESSION
+        axios.post("http://localhost:8000/api/whatsapp/connected/", {
+          session_id: session
+        }).catch(err => {
+          console.error("Failed to notify Django:", err.message);
+        });
         sessions[session].qr = null;
 
         io.emit(`connected:${session}`, {

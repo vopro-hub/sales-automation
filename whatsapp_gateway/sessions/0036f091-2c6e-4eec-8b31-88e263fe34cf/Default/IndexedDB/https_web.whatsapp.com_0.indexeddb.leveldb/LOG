@@ -1,0 +1,32 @@
+2026/03/24-21:54:26.488 199cf Creating DB /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/0036f091-2c6e-4eec-8b31-88e263fe34cf/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
+2026/03/24-21:54:26.524 199cf Reusing MANIFEST /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/0036f091-2c6e-4eec-8b31-88e263fe34cf/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/24-23:05:57.295 199d1 Level-0 table #5: started
+2026/03/24-23:05:57.356 199d1 Level-0 table #5: 1107840 bytes OK
+2026/03/24-23:05:57.370 199d1 Delete type=0 #3
+2026/03/24-23:51:09.817 199d1 Level-0 table #7: started
+2026/03/24-23:51:09.861 199d1 Level-0 table #7: 838473 bytes OK
+2026/03/24-23:51:09.873 199d1 Delete type=0 #4
+2026/03/24-23:51:42.288 199d1 Compacting 1@1 + 1@2 files
+2026/03/24-23:51:42.324 199d1 Generated table #8@1: 9992 keys, 838938 bytes
+2026/03/24-23:51:42.324 199d1 Compacted 1@1 + 1@2 files => 838938 bytes
+2026/03/24-23:51:42.334 199d1 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/24-23:51:42.334 199d1 Delete type=2 #5
+2026/03/24-23:51:42.334 199d1 Delete type=2 #7
+2026/03/25-00:22:49.921 199d1 Level-0 table #10: started
+2026/03/25-00:22:49.970 199d1 Level-0 table #10: 767600 bytes OK
+2026/03/25-00:22:49.978 199d1 Delete type=0 #6
+2026/03/25-00:23:21.579 199d1 Compacting 1@1 + 1@2 files
+2026/03/25-00:23:21.636 199d1 Generated table #11@1: 12148 keys, 1188626 bytes
+2026/03/25-00:23:21.636 199d1 Compacted 1@1 + 1@2 files => 1188626 bytes
+2026/03/25-00:23:21.644 199d1 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/25-00:23:21.645 199d1 Delete type=2 #10
+2026/03/25-00:23:21.645 199d1 Delete type=2 #8
+2026/03/25-00:51:00.239 199cf Level-0 table #13: started
+2026/03/25-00:51:00.321 199cf Level-0 table #13: 775863 bytes OK
+2026/03/25-00:51:00.351 199cf Delete type=0 #9
+2026/03/25-00:51:33.824 199cf Compacting 1@1 + 1@2 files
+2026/03/25-00:51:33.877 199cf Generated table #14@1: 14056 keys, 1553774 bytes
+2026/03/25-00:51:33.877 199cf Compacted 1@1 + 1@2 files => 1553774 bytes
+2026/03/25-00:51:33.887 199cf compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/25-00:51:33.888 199cf Delete type=2 #11
+2026/03/25-00:51:33.888 199cf Delete type=2 #13

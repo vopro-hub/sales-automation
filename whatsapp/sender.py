@@ -1,22 +1,24 @@
 import requests
-from django.conf import settings
 
-WHATSAPP_TOKEN = "https://graph.facebook.com/v19.0/messages"
+WPP_URL = "http://localhost:3001/messages/send"
 
-from core.branding import get_branding
 
-def send_whatsapp_message(tenant, phone, message):
-    branding = get_branding(tenant)
+def send_whatsapp_message(session_id, to, text):
+    try:
+        # 🔥 Normalize phone (VERY IMPORTANT)
+        to = str(to).replace("+", "").strip()
 
-    payload = {
-        "to": phone,
-        "sender_name": branding["whatsapp_sender"],
-        "message": message,
-    }
-    requests.post(
-        settings.WHATSAPP_API_URL,
-        headers={
-            "Authorization": f"Bearer {settings.WHATSAPP_TOKEN}"
-        },
-        json= payload
-    )
+        payload = {
+            "session": session_id,
+            "to": to,
+            "message": text
+        }
+
+        print("📤 SENDING:", payload)
+
+        res = requests.post(WPP_URL, json=payload, timeout=5)
+
+        print("📥 RESPONSE:", res.status_code, res.text)
+
+    except Exception as e:
+        print("❌ SEND ERROR:", str(e))

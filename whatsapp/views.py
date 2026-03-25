@@ -1,10 +1,11 @@
 import json
 import hmac
 import hashlib
+from urllib import request
 import uuid
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from django.conf import settings
 from django.http import HttpResponseForbidden, JsonResponse
@@ -34,42 +35,53 @@ class StartWhatsAppSessionView(APIView):
                 "message": "You already have a WhatsApp session. Relink?",
             }, status=200)
 
-        # Delete old session if relinking
-        if existing:
-            existing.delete()
+        
 
         session_id = str(uuid.uuid4())
 
-        WhatsAppSession.objects.create(
-            tenant=user.tenant,
-            user=user,
-            session_id=session_id,
-            status="connecting"
-        )
-
         create_session(session_id)
-
+        print("Session id:", session_id)
         return Response({
             "session_id": session_id,
             "has_session": False
         })
 
+class WhatsAppConnectedView(APIView):
+    permission_classes = [AllowAny]  # or remove if internal
+
+    def post(self, request):
+        session_id = request.data.get("session_id")
+        user = request.user
+
+        
+        # Delete old session if relinking
+        existing = WhatsAppSession.objects.filter(user=user).first()
+        if existing:
+            existing.delete()
+            
+        WhatsAppSession.objects.create(
+            tenant=user.tenant,
+            user=user,
+            session_id=session_id,
+            status="connected"
+        )
+
+        return Response({"status": "saved"})
 
 class QRCodeView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-
-        try:
-            session = WhatsAppSession.objects.get(user=request.user)
-        except WhatsAppSession.DoesNotExist:
-            return Response({"error": "No session"}, status=404)
-
-        qr = get_qr_code(session.session_id)
-       
+        session_id = request.query_params.get("session")
+    
+        if not session_id:
+            return Response({"error": "No session_id"}, status=400)
+    
+        qr = get_qr_code(session_id)
+    
         return Response({
             "qr": qr.get("qr"),
-            "status": session.status
+            "connected": qr.get("connected", False)
         })
 
 @csrf_exempt
