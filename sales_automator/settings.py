@@ -29,6 +29,7 @@ CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
 CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
 WPP_WEBHOOK_SECRET = "super-secure-webhook-secret"
 WPP_CONNECT_URL = "http://localhost:3001"
+AI_SIMULATION_MODE = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

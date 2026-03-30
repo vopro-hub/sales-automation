@@ -28,7 +28,7 @@ const sessions = {};
 CONFIG
 */
 const PORT = 3001;
-const DJANGO_WEBHOOK = "http://localhost:8000/api/whatsapp/webhook/";
+const DJANGO_WEBHOOK = "http://127.0.0.1:8000/api/whatsapp/webhook/";
 const SECRET = "super-secure-webhook-secret";
 
 /*
@@ -53,6 +53,33 @@ function randomDelay() {
   return new Promise((resolve) => setTimeout(resolve, delay));
 }
 
+
+let browserInstance = null;
+
+async function warmupWPP() {
+  try {
+    console.log("🔥 Starting persistent browser...");
+
+    browserInstance = await wppconnect.create({
+      session: "engine",
+      headless: true,
+      autoClose: 0, // ❗ NEVER CLOSE
+      useChrome: true,
+      puppeteerOptions: {
+        args: ["--no-sandbox", "--disable-setuid-sandbox"]
+      },
+
+      catchQR: () => {},
+      statusFind: () => {}
+    });
+
+    console.log("✅ Browser ready (persistent)");
+
+  } catch (err) {
+    console.error("❌ Warmup failed:", err.message);
+  }
+}
+
 /*
 START SESSION
 */
@@ -74,7 +101,8 @@ app.post("/sessions/start", async (req, res) => {
     sessions[session] = {
       client: null,
       qr: null,
-      connected: false
+      connected: false,
+      token: req.body.token 
     };
 
     const client = await wppconnect.create({
@@ -82,6 +110,10 @@ app.post("/sessions/start", async (req, res) => {
       folderNameToken: SESSION_FOLDER,
       headless: true,
       autoClose: 0,
+
+      useChrome: true,
+
+      browserWSEndpoint: browserInstance?.puppeteer?.wsEndpoint?.(),
 
       puppeteerOptions: {
         args: ["--no-sandbox", "--disable-setuid-sandbox"]
@@ -121,7 +153,13 @@ app.post("/sessions/start", async (req, res) => {
         // 🔥 CALL DJANGO TO SAVE SESSION
         axios.post("http://localhost:8000/api/whatsapp/connected/", {
           session_id: session
-        }).catch(err => {
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${sessions[session].token}`  // 🔥 THIS FIXES EVERYTHING
+          }
+        }
+      ).catch(err => {
           console.error("Failed to notify Django:", err.message);
         });
         sessions[session].qr = null;
@@ -149,10 +187,23 @@ app.post("/sessions/start", async (req, res) => {
       try {
         if (message.isGroupMsg) return;
         if (!message.body) return;
+        
+        // ✅ ROBUST SENDER EXTRACTION
+        const sender =
+          message.from ||
+          message.sender?.id ||
+          message.chatId ||
+          message.chat?.id;
+    
+        if (!sender) {
+          console.log("⚠️ No sender found:", message);
+          return;
+        }
+        console.log("📩 INCOMING FROM:", sender);
 
         const payload = {
           session: session,
-          from: message.from,
+          from: sender,
           body: message.body,
           isGroupMsg: message.isGroupMsg,
         };
@@ -162,14 +213,17 @@ app.post("/sessions/start", async (req, res) => {
           .update(JSON.stringify(payload))
           .digest("hex");
 
-        await axios.post(DJANGO_WEBHOOK, payload, {
+        const response = await axios.post(DJANGO_WEBHOOK, payload, {
           headers: {
             "X-WPP-Signature": signature,
           },
           timeout: 5000,
         });
+        console.log("✅ DJANGO RESPONSE:", response.status);
+
       } catch (err) {
-        console.error("Webhook delivery failed:", err.message);
+        console.error("❌ ERROR STATUS:", err.response?.status);
+        console.error("❌ ERROR DATA:", err.response?.data);
       }
     });
 
@@ -207,16 +261,36 @@ app.post("/messages/send", async (req, res) => {
     return res.status(404).json({ error: "Session not active" });
   }
 
+  const delay = Math.min(3000, message.length * 50);
+
   try {
     await randomDelay();
+    
+    // ✅ Ensure chat is initialized
+    await s.client.sendSeen(to);
 
-    const number = to.includes("@c.us") ? to : `${to}@c.us`;
+    // ✅ Optional (makes it feel human)
+    await s.client.startTyping(to);
 
-    await s.client.sendText(number, message);
+    // ✅ Small delay (important for stability)
+    await new Promise(resolve => setTimeout(resolve, delay));
+
+    // ✅ ACTUAL SEND (this is the correct method)
+    await s.client.sendText(to, message);
+
+    // ✅ STOP typing immediately after sending
+    await s.client.stopTyping(to);
+
+    console.log("✅ MESSAGE SENT");
 
     res.json({ status: "sent" });
   } catch (err) {
     console.error("Send message failed:", err);
+    // 🔥 Safety: ensure typing stops even on error
+    try {
+      await s.client.stopTyping(to);
+    } catch (e) {}
+
     res.status(500).json({ error: err.message });
   }
 });
@@ -231,6 +305,8 @@ app.get("/health", (req, res) => {
 /*
 START SERVER
 */
-server.listen(PORT, () => {
+server.listen(PORT, async () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
+  await warmupWPP();
+  await browserInstance.getWAVersion();
 });

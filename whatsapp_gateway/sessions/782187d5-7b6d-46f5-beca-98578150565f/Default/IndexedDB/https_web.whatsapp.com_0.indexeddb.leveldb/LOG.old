@@ -1,0 +1,41 @@
+2026/03/26-22:25:13.123 ffa6 Creating DB /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/782187d5-7b6d-46f5-beca-98578150565f/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
+2026/03/26-22:25:13.147 ffa6 Reusing MANIFEST /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/782187d5-7b6d-46f5-beca-98578150565f/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/26-22:27:33.428 ffad Level-0 table #5: started
+2026/03/26-22:27:33.497 ffad Level-0 table #5: 997365 bytes OK
+2026/03/26-22:27:33.507 ffad Delete type=0 #3
+2026/03/26-22:28:17.947 ffa8 Level-0 table #7: started
+2026/03/26-22:28:18.022 ffa8 Level-0 table #7: 1138410 bytes OK
+2026/03/26-22:28:18.038 ffa8 Delete type=0 #4
+2026/03/26-22:28:18.049 ffa8 Compacting 1@1 + 1@2 files
+2026/03/26-22:28:18.231 ffa8 Generated table #8@1: 25583 keys, 981572 bytes
+2026/03/26-22:28:18.232 ffa8 Compacted 1@1 + 1@2 files => 981572 bytes
+2026/03/26-22:28:18.241 ffa8 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/26-22:28:19.046 ffa8 Level-0 table #10: started
+2026/03/26-22:28:19.126 ffa8 Level-0 table #10: 984727 bytes OK
+2026/03/26-22:28:19.135 ffa8 Delete type=2 #5
+2026/03/26-22:28:19.135 ffa8 Delete type=0 #6
+2026/03/26-22:28:19.136 ffa8 Delete type=2 #7
+2026/03/26-22:28:19.142 ffa8 Compacting 1@1 + 1@2 files
+2026/03/26-22:28:19.238 ffa8 Generated table #11@1: 32472 keys, 1306541 bytes
+2026/03/26-22:28:19.238 ffa8 Compacted 1@1 + 1@2 files => 1306541 bytes
+2026/03/26-22:28:19.247 ffa8 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/26-22:28:19.250 ffa8 Delete type=2 #10
+2026/03/26-22:28:19.250 ffa8 Delete type=2 #8
+2026/03/26-22:29:00.908 ffad Level-0 table #13: started
+2026/03/26-22:29:00.975 ffad Level-0 table #13: 988845 bytes OK
+2026/03/26-22:29:00.985 ffad Delete type=0 #9
+2026/03/26-22:29:01.263 ffa8 Compacting 1@1 + 1@2 files
+2026/03/26-22:29:01.398 ffa8 Generated table #14@1: 38881 keys, 1750745 bytes
+2026/03/26-22:29:01.399 ffa8 Compacted 1@1 + 1@2 files => 1750745 bytes
+2026/03/26-22:29:01.408 ffa8 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/26-22:29:01.410 ffa8 Delete type=2 #11
+2026/03/26-22:29:01.411 ffa8 Delete type=2 #13
+2026/03/26-22:29:36.219 ffa8 Level-0 table #16: started
+2026/03/26-22:29:36.285 ffa8 Level-0 table #16: 1079838 bytes OK
+2026/03/26-22:29:36.297 ffa8 Delete type=0 #12
+2026/03/26-22:29:36.302 ffa8 Compacting 1@1 + 1@2 files
+2026/03/26-22:29:36.460 ffa8 Generated table #17@1: 43342 keys, 1928307 bytes
+2026/03/26-22:29:36.461 ffa8 Compacted 1@1 + 1@2 files => 1928307 bytes
+2026/03/26-22:29:36.472 ffa8 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/26-22:29:36.473 ffa8 Delete type=2 #14
+2026/03/26-22:29:36.473 ffa8 Delete type=2 #16

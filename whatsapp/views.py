@@ -25,7 +25,8 @@ class StartWhatsAppSessionView(APIView):
     def post(self, request):
 
         user = request.user
-
+        token = request.data.get("token")
+        
         existing = WhatsAppSession.objects.filter(user=user).first()
 
         # If session exists and user didn't confirm relink
@@ -39,7 +40,7 @@ class StartWhatsAppSessionView(APIView):
 
         session_id = str(uuid.uuid4())
 
-        create_session(session_id)
+        create_session(session_id, token)
         print("Session id:", session_id)
         return Response({
             "session_id": session_id,
@@ -47,12 +48,12 @@ class StartWhatsAppSessionView(APIView):
         })
 
 class WhatsAppConnectedView(APIView):
-    permission_classes = [AllowAny]  # or remove if internal
+    permission_classes = [IsAuthenticated]  # or remove if internal
 
     def post(self, request):
         session_id = request.data.get("session_id")
         user = request.user
-
+        print("user is:", request.user)
         
         # Delete old session if relinking
         existing = WhatsAppSession.objects.filter(user=user).first()
@@ -85,77 +86,70 @@ class QRCodeView(APIView):
         })
 
 @csrf_exempt
-@ratelimit(key="ip", rate="60/m", block=True)
+@ratelimit(key="ip", rate="30/m", block=True)
 def whatsapp_webhook(request):
-    """
-    Receives incoming WhatsApp messages from the WPPConnect gateway.
-    Routes the message to the correct tenant, lead, and AI pipeline.
-    """
 
-    if request.method != "POST":
-        return JsonResponse({"status": "method_not_allowed"}, status=405)
+    if request.method == "POST":
 
-    if not verify_signature(request):
-        return HttpResponseForbidden("Invalid webhook signature")
+        try:
+            payload = json.loads(request.body)
 
-    try:
-        payload = json.loads(request.body)
+            # ✅ NEW FORMAT (from Node WPPConnect)
+            session_id = payload.get("session")
+            from_number = payload.get("from")
+            text = payload.get("body")
 
-        session_id = payload.get("session")
-        from_number = payload.get("from")
-        text = payload.get("body")
-        is_group = payload.get("isGroupMsg", False)
+            if not session_id or not from_number or not text:
+                print("⚠️ Invalid payload:", payload)
+                return JsonResponse({"status": "ignored_invalid"}, status=200)
+        except Exception:
+            return JsonResponse({"status": "invalid_payload"}, status=400)
 
-    except Exception:
-        return JsonResponse({"status": "invalid_payload"}, status=400)
+        # 🔥 GET SESSION (THIS WAS MISSING)
+        
+        session = WhatsAppSession.objects.filter(
+            session_id=session_id
+        ).first()
+        
+        # 🔥 AUTO-RECOVER (CRITICAL FIX)
+        if not session:
+            print("⚠️ Session not found, auto-creating:", session_id)
+        
+            # ⚠️ You don't have user context here → create minimal session
+            session = WhatsAppSession.objects.create(
+                session_id=session_id,
+                status="connected"
+            )
 
-    # Ignore group messages
-    if is_group:
-        return JsonResponse({"status": "ignored_group"})
+        tenant = session.tenant
 
-    # Find the WhatsApp session
-    try:
-        session = WhatsAppSession.objects.select_related("tenant", "user").get(
-            session_id=session_id,
-            status="connected"
+        # CREATE OR GET LEAD
+        if not from_number:
+            return JsonResponse({"status": "no_sender"}, status=200)
+
+        lead, _ = Lead.objects.get_or_create(
+            tenant=tenant,
+            phone=from_number
         )
-    except WhatsAppSession.DoesNotExist:
-        return JsonResponse({"status": "unknown_session"}, status=404)
 
-    tenant = session.tenant
-    agent = session.user
+        # SAVE MESSAGE
+        Message.objects.create(
+            tenant=tenant,
+            lead=lead,
+            sender="lead",
+            content=text
+        )
 
-    # Normalize number
-    from_number = from_number.replace("@c.us", "")
+        # PROCESS AI
+        handle_incoming_message(
+            tenant=tenant,
+            lead=lead,
+            message=text,
+            session=session,
+            agent=None  # you can improve later
+        )
 
-    # Get or create lead
-    lead, _ = Lead.objects.get_or_create(
-        tenant=tenant,
-        phone=from_number
-    )
-
-    # Save incoming message
-    Message.objects.create(
-        tenant=tenant,
-        lead=lead,
-        sender="lead",
-        content=text,
-        metadata={
-            "session_id": session_id,
-            "agent_id": agent.id
-        }
-    )
-
-    # Send to AI engine
-    handle_incoming_message(
-        tenant=tenant,
-        lead=lead,
-        message=text,
-        session=session,
-        agent=agent
-    )
-
-    return JsonResponse({"status": "ok"})
+        return JsonResponse({"status": "ok"})
 
 def verify_signature(request):
     """

@@ -1,0 +1,40 @@
+2026/03/25-22:05:59.559 143ef Creating DB /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/69d36be9-655e-4762-9bf7-12f36c934d26/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
+2026/03/25-22:05:59.578 143ef Reusing MANIFEST /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/69d36be9-655e-4762-9bf7-12f36c934d26/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/25-22:08:16.723 143f1 Level-0 table #5: started
+2026/03/25-22:08:16.777 143f1 Level-0 table #5: 1031468 bytes OK
+2026/03/25-22:08:16.788 143f1 Delete type=0 #3
+2026/03/25-22:08:34.822 143f1 Level-0 table #7: started
+2026/03/25-22:08:35.253 143ef Current memtable full; waiting...
+2026/03/25-22:08:35.499 143f1 Level-0 table #7: 1092920 bytes OK
+2026/03/25-22:08:35.899 143f1 Delete type=0 #4
+2026/03/25-22:08:35.899 143f1 Level-0 table #9: started
+2026/03/25-22:08:35.920 143f1 Level-0 table #9: 897972 bytes OK
+2026/03/25-22:08:35.929 143f1 Delete type=0 #6
+2026/03/25-22:08:35.931 143f1 Compacting 1@0 + 1@1 files
+2026/03/25-22:08:35.971 143f1 Generated table #10@0: 49361 keys, 1165072 bytes
+2026/03/25-22:08:35.971 143f1 Compacted 1@0 + 1@1 files => 1165072 bytes
+2026/03/25-22:08:35.978 143f1 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/03/25-22:08:35.980 143f1 Compacting 1@1 + 1@2 files
+2026/03/25-22:08:36.016 143f1 Generated table #11@1: 33607 keys, 1390127 bytes
+2026/03/25-22:08:36.016 143f1 Compacted 1@1 + 1@2 files => 1390127 bytes
+2026/03/25-22:08:36.024 143f1 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/25-22:08:36.025 143f1 Delete type=2 #9
+2026/03/25-22:08:36.025 143f1 Delete type=2 #7
+2026/03/25-22:09:15.917 143f1 Level-0 table #13: started
+2026/03/25-22:09:15.936 143f1 Level-0 table #13: 1029690 bytes OK
+2026/03/25-22:09:15.943 143f1 Delete type=0 #8
+2026/03/25-22:09:15.943 143f1 Delete type=2 #10
+2026/03/25-22:09:15.943 143f1 Delete type=2 #5
+2026/03/25-22:09:15.955 143f1 Compacting 1@1 + 1@2 files
+2026/03/25-22:09:16.001 143f1 Generated table #14@1: 39375 keys, 1789527 bytes
+2026/03/25-22:09:16.002 143f1 Compacted 1@1 + 1@2 files => 1789527 bytes
+2026/03/25-22:09:16.010 143f1 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/25-22:09:16.010 143f1 Delete type=2 #11
+2026/03/25-22:09:16.010 143f1 Delete type=2 #13
+2026/03/25-22:09:39.498 143f1 Level-0 table #16: started
+2026/03/25-22:09:39.543 143f1 Level-0 table #16: 1090711 bytes OK
+2026/03/25-22:09:39.553 143f1 Delete type=0 #12
+2026/03/25-22:09:39.894 143f1 Compacting 1@1 + 1@2 files
+2026/03/25-22:09:39.971 143f1 Generated table #17@1: 43370 keys, 1951811 bytes
+2026/03/25-22:09:39.971 143f1 Compacted 1@1 + 1@2 files => 1951811 bytes
+2026/03/25-22:09:39.979 143f1 compacted to: files[ 0 0 1 0 0 0 0 ]

@@ -6,7 +6,7 @@ WPP_URL = "http://localhost:3001/messages/send"
 def send_whatsapp_message(session_id, to, text):
     try:
         # 🔥 Normalize phone (VERY IMPORTANT)
-        to = str(to).replace("+", "").strip()
+        to = str(to).strip()
 
         payload = {
             "session": session_id,

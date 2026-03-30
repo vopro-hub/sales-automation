@@ -1,0 +1,32 @@
+2026/03/28-21:07:16.888 6b94 Creating DB /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/8bd584fb-fd97-4088-9934-4b05f72fa50f/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
+2026/03/28-21:07:16.907 6b94 Reusing MANIFEST /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/8bd584fb-fd97-4088-9934-4b05f72fa50f/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/28-22:18:54.135 6b96 Level-0 table #5: started
+2026/03/28-22:18:54.232 6b96 Level-0 table #5: 1117789 bytes OK
+2026/03/28-22:18:54.247 6b96 Delete type=0 #3
+2026/03/28-23:04:04.266 6b96 Level-0 table #7: started
+2026/03/28-23:04:04.297 6b96 Level-0 table #7: 844777 bytes OK
+2026/03/28-23:04:04.306 6b96 Delete type=0 #4
+2026/03/28-23:04:38.895 6b96 Compacting 1@1 + 1@2 files
+2026/03/28-23:04:38.932 6b96 Generated table #8@1: 10195 keys, 837847 bytes
+2026/03/28-23:04:38.933 6b96 Compacted 1@1 + 1@2 files => 837847 bytes
+2026/03/28-23:04:38.939 6b96 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/28-23:04:38.940 6b96 Delete type=2 #5
+2026/03/28-23:04:38.940 6b96 Delete type=2 #7
+2026/03/28-23:36:25.205 6b96 Level-0 table #10: started
+2026/03/28-23:36:25.264 6b96 Level-0 table #10: 779166 bytes OK
+2026/03/28-23:36:25.277 6b96 Delete type=0 #6
+2026/03/28-23:39:13.593 6b94 Compacting 1@1 + 1@2 files
+2026/03/28-23:39:13.658 6b94 Generated table #11@1: 12492 keys, 1193493 bytes
+2026/03/28-23:39:13.658 6b94 Compacted 1@1 + 1@2 files => 1193493 bytes
+2026/03/28-23:39:13.667 6b94 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/28-23:39:13.667 6b94 Delete type=2 #10
+2026/03/28-23:39:13.667 6b94 Delete type=2 #8
+2026/03/29-00:01:08.754 6b9b Level-0 table #13: started
+2026/03/29-00:01:08.795 6b9b Level-0 table #13: 769345 bytes OK
+2026/03/29-00:01:08.804 6b9b Delete type=0 #9
+2026/03/29-00:03:54.389 6b9b Compacting 1@1 + 1@2 files
+2026/03/29-00:03:54.452 6b9b Generated table #14@1: 14178 keys, 1569980 bytes
+2026/03/29-00:03:54.452 6b9b Compacted 1@1 + 1@2 files => 1569980 bytes
+2026/03/29-00:03:54.460 6b9b compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/29-00:03:54.460 6b9b Delete type=2 #11
+2026/03/29-00:03:54.460 6b9b Delete type=2 #13

@@ -1,0 +1,42 @@
+2026/03/28-23:02:17.205 16d27 Reusing MANIFEST /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/ed235534-36da-48ff-8dff-9464efc1f5f6/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/28-23:02:17.205 16d27 Recovering log #53
+2026/03/28-23:02:17.205 16d27 Reusing old log /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/ed235534-36da-48ff-8dff-9464efc1f5f6/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000053.log 
+2026/03/28-23:02:17.219 16d2e Level-0 table #58: started
+2026/03/28-23:02:17.229 16d2e Level-0 table #58: 593 bytes OK
+2026/03/28-23:02:17.238 16d2e Delete type=0 #53
+2026/03/28-23:02:17.239 16d2e Manual compaction at level-0 from '\x00\x0a\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x0b\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/03/28-23:02:17.239 16d2e Manual compaction at level-1 from '\x00\x0a\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x0b\x00\x00\x00' @ 0 : 0; will stop at '\x00\x0a\x00\x00\xc8\x06\x00s\x00t\x00a\x00t\x00u\x00s' @ 390515 : 0
+2026/03/28-23:02:17.239 16d2e Compacting 1@1 + 1@2 files
+2026/03/28-23:02:17.252 16d2e Generated table #59@1: 290 keys, 38201 bytes
+2026/03/28-23:02:17.252 16d2e Compacted 1@1 + 1@2 files => 38201 bytes
+2026/03/28-23:02:17.267 16d2e compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/28-23:02:17.268 16d2e Delete type=2 #58
+2026/03/28-23:02:17.268 16d29 Manual compaction at level-1 from '\x00\x0a\x00\x00\xc8\x06\x00s\x00t\x00a\x00t\x00u\x00s' @ 390515 : 0 .. '\x00\x0b\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/03/28-23:02:17.269 16d29 Level-0 table #61: started
+2026/03/28-23:02:17.276 16d29 Level-0 table #61: 32885 bytes OK
+2026/03/28-23:02:17.284 16d29 Delete type=2 #55
+2026/03/28-23:02:17.284 16d29 Delete type=0 #57
+2026/03/28-23:02:17.284 16d29 Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/03/28-23:02:17.284 16d29 Manual compaction at level-1 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at '\x00\x0e\x00\x00\x05' @ 390527 : 1
+2026/03/28-23:02:17.284 16d29 Compacting 1@1 + 1@2 files
+2026/03/28-23:02:17.292 16d29 Generated table #62@1: 17 keys, 552 bytes
+2026/03/28-23:02:17.292 16d29 Compacted 1@1 + 1@2 files => 552 bytes
+2026/03/28-23:02:17.301 16d29 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/28-23:02:17.301 16d29 Delete type=2 #61
+2026/03/28-23:02:17.301 16d29 Manual compaction at level-1 from '\x00\x0e\x00\x00\x05' @ 390527 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/03/28-23:02:17.366 16d27 Level-0 table #64: started
+2026/03/28-23:02:17.376 16d27 Level-0 table #64: 6884 bytes OK
+2026/03/28-23:02:17.395 16d27 Delete type=2 #59
+2026/03/28-23:02:17.395 16d27 Delete type=0 #60
+2026/03/28-23:02:17.395 16d27 Manual compaction at level-0 from '\x00\x0e\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x0f\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/03/28-23:02:17.395 16d27 Manual compaction at level-1 from '\x00\x0e\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x0f\x00\x00\x00' @ 0 : 0; will stop at '\x00\x0e\x00\x00\xc8\x11\x00w\x00o\x00r\x00k\x00e\x00r\x00_\x00w\x00a\x00m\x00_\x00e\x00v\x00e\x00n\x00t\x00s' @ 391121 : 1
+2026/03/28-23:02:17.395 16d27 Compacting 1@1 + 1@2 files
+2026/03/28-23:02:17.402 16d27 Generated table #65@1: 14 keys, 490 bytes
+2026/03/28-23:02:17.402 16d27 Compacted 1@1 + 1@2 files => 490 bytes
+2026/03/28-23:02:17.409 16d27 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/28-23:02:17.409 16d27 Delete type=2 #64
+2026/03/28-23:02:17.409 16d27 Manual compaction at level-1 from '\x00\x0e\x00\x00\xc8\x11\x00w\x00o\x00r\x00k\x00e\x00r\x00_\x00w\x00a\x00m\x00_\x00e\x00v\x00e\x00n\x00t\x00s' @ 391121 : 1 .. '\x00\x0f\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/03/29-00:12:31.232 16d27 Level-0 table #67: started
+2026/03/29-00:12:31.281 16d27 Level-0 table #67: 1110112 bytes OK
+2026/03/29-00:12:31.295 16d27 Delete type=0 #63
+2026/03/29-00:12:31.295 16d27 Delete type=2 #62

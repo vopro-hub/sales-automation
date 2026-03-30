@@ -1,0 +1,5 @@
+2026/03/25-20:09:28.126 2e25 Creating DB /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/7118c138-9f61-46e6-a5cc-e3a7238f68a4/Default/Local Storage/leveldb since it was missing.
+2026/03/25-20:09:28.196 2e25 Reusing MANIFEST /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/7118c138-9f61-46e6-a5cc-e3a7238f68a4/Default/Local Storage/leveldb/MANIFEST-000001
+2026/03/25-20:30:30.651 2e25 Level-0 table #5: started
+2026/03/25-20:30:30.684 2e25 Level-0 table #5: 19273 bytes OK
+2026/03/25-20:30:30.692 2e25 Delete type=0 #3

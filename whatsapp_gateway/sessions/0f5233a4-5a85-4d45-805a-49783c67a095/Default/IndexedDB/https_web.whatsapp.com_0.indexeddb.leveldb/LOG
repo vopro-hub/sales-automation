@@ -30,3 +30,12 @@
 2026/03/25-00:36:23.276 f71f compacted to: files[ 0 0 1 0 0 0 0 ]
 2026/03/25-00:36:23.277 f71f Delete type=2 #11
 2026/03/25-00:36:23.277 f71f Delete type=2 #13
+2026/03/25-01:00:31.186 f71f Level-0 table #16: started
+2026/03/25-01:00:31.222 f71f Level-0 table #16: 733048 bytes OK
+2026/03/25-01:00:31.231 f71f Delete type=0 #12
+2026/03/25-01:01:03.464 f71f Compacting 1@1 + 1@2 files
+2026/03/25-01:01:03.517 f71f Generated table #17@1: 15666 keys, 1913374 bytes
+2026/03/25-01:01:03.517 f71f Compacted 1@1 + 1@2 files => 1913374 bytes
+2026/03/25-01:01:03.530 f71f compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/25-01:01:03.530 f71f Delete type=2 #14
+2026/03/25-01:01:03.531 f71f Delete type=2 #16

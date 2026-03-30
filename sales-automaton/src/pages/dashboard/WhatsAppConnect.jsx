@@ -18,14 +18,17 @@ export default function WhatsAppConnect() {
   */
   const startSession = async (force = false) => {
     setLoading(true);
-
+    const token = localStorage.getItem("access");
     try {
       const res = await api.post("/whatsapp/start/", {
-        force
+        force,
+        session: sessionId,
+        token: token 
       });
 
       // ✅ NEW: get sessionId from backend
       const newSessionId = res.data.session_id;
+      console.log("session id is:", newSessionId);
       setSessionId(newSessionId);
       if (res.data.has_session && !force) {
         setHasSession(true);

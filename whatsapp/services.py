@@ -5,9 +5,9 @@ from django.conf import settings
 WPP_URL = settings.WPP_CONNECT_URL
 
 
-def create_session(session_id):
+def create_session(session_id, token):
     url = f"{WPP_URL}/sessions/start"
-    payload = {"session": session_id}
+    payload = {"session": session_id, "token": token}
     return requests.post(url, json=payload).json()
 
 

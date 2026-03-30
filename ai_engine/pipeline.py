@@ -58,11 +58,7 @@ def handle_incoming_message(tenant, lead, message, session, agent):
         tenant=tenant,
         lead=lead,
         sender="ai",
-        content=ai_response,
-        metadata={
-            "session_id": session.session_id,
-            "agent_id": agent.id
-        }
+        content=ai_response
     )
 
     # Update qualification signals
@@ -70,7 +66,10 @@ def handle_incoming_message(tenant, lead, message, session, agent):
         lead,
         message
     )
-
+    
+    print("🤖 AI RESPONSE:", ai_response)
+    print("📤 SENDING TO:", lead.phone)
+    print("📤 SESSION:", session.session_id)
     # Send WhatsApp reply using the correct agent session
     send_whatsapp_message(
         session_id=session.session_id,

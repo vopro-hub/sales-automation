@@ -1,0 +1,39 @@
+2026/03/29-20:49:17.444 9012 Creating DB /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/7924920b-b0ee-4b9f-aca9-a417786e2a01/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb since it was missing.
+2026/03/29-20:49:17.464 9012 Reusing MANIFEST /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/7924920b-b0ee-4b9f-aca9-a417786e2a01/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/29-20:50:13.255 9014 Level-0 table #5: started
+2026/03/29-20:50:13.314 9014 Level-0 table #5: 1013169 bytes OK
+2026/03/29-20:50:13.323 9014 Delete type=0 #3
+2026/03/29-20:50:27.155 9014 Level-0 table #7: started
+2026/03/29-20:50:27.201 9014 Level-0 table #7: 1090102 bytes OK
+2026/03/29-20:50:27.209 9014 Delete type=0 #4
+2026/03/29-20:50:27.215 9014 Compacting 1@1 + 1@2 files
+2026/03/29-20:50:27.250 9014 Generated table #8@1: 26992 keys, 1107379 bytes
+2026/03/29-20:50:27.250 9014 Compacted 1@1 + 1@2 files => 1107379 bytes
+2026/03/29-20:50:27.258 9014 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/29-20:50:27.258 9014 Delete type=2 #5
+2026/03/29-20:50:27.258 9014 Delete type=2 #7
+2026/03/29-20:50:27.636 9014 Level-0 table #10: started
+2026/03/29-20:50:27.660 9014 Level-0 table #10: 900274 bytes OK
+2026/03/29-20:50:27.673 9014 Delete type=0 #6
+2026/03/29-20:50:27.676 9014 Compacting 1@1 + 1@2 files
+2026/03/29-20:50:27.714 9014 Generated table #11@1: 33486 keys, 1367675 bytes
+2026/03/29-20:50:27.714 9014 Compacted 1@1 + 1@2 files => 1367675 bytes
+2026/03/29-20:50:27.722 9014 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/29-20:51:08.265 9019 Level-0 table #13: started
+2026/03/29-20:51:08.317 9019 Level-0 table #13: 1037886 bytes OK
+2026/03/29-20:51:08.326 9019 Delete type=2 #10
+2026/03/29-20:51:08.327 9019 Delete type=0 #9
+2026/03/29-20:51:08.327 9019 Delete type=2 #8
+2026/03/29-20:51:08.811 9014 Compacting 1@1 + 1@2 files
+2026/03/29-20:51:08.896 9014 Generated table #14@1: 39164 keys, 1772349 bytes
+2026/03/29-20:51:08.896 9014 Compacted 1@1 + 1@2 files => 1772349 bytes
+2026/03/29-20:51:08.904 9014 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/29-20:51:08.904 9014 Delete type=2 #11
+2026/03/29-20:51:08.905 9014 Delete type=2 #13
+2026/03/29-20:51:31.984 9014 Level-0 table #16: started
+2026/03/29-20:51:32.042 9014 Level-0 table #16: 1088126 bytes OK
+2026/03/29-20:51:32.050 9014 Delete type=0 #12
+2026/03/29-20:51:32.073 9012 Compacting 1@1 + 1@2 files
+2026/03/29-20:51:32.134 9012 Generated table #17@1: 43987 keys, 1963994 bytes
+2026/03/29-20:51:32.134 9012 Compacted 1@1 + 1@2 files => 1963994 bytes
+2026/03/29-20:51:32.141 9012 compacted to: files[ 0 0 1 0 0 0 0 ]

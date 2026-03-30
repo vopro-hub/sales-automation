@@ -1,0 +1,22 @@
+2026/03/26-22:37:41.966 ffa6 Reusing MANIFEST /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/782187d5-7b6d-46f5-beca-98578150565f/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/26-22:37:41.966 ffa6 Recovering log #15
+2026/03/26-22:37:42.018 ffa6 Reusing old log /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/782187d5-7b6d-46f5-beca-98578150565f/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000015.log 
+2026/03/26-22:37:55.075 ffa8 Level-0 table #20: started
+2026/03/26-22:37:55.129 ffa8 Level-0 table #20: 1101793 bytes OK
+2026/03/26-22:37:55.141 ffa8 Delete type=0 #15
+2026/03/26-22:37:55.240 ffa8 Compacting 1@1 + 1@2 files
+2026/03/26-22:37:55.404 ffa8 Generated table #21@1: 49392 keys, 2209754 bytes
+2026/03/26-22:37:55.413 ffa8 Generated table #22@1: 900 keys, 15816 bytes
+2026/03/26-22:37:55.414 ffa8 Compacted 1@1 + 1@2 files => 2225570 bytes
+2026/03/26-22:37:55.424 ffa8 compacted to: files[ 0 0 2 0 0 0 0 ]
+2026/03/26-22:37:55.424 ffa8 Delete type=2 #20
+2026/03/26-22:37:55.424 ffa8 Delete type=2 #17
+2026/03/26-22:37:56.590 ffa8 Level-0 table #24: started
+2026/03/26-22:37:56.658 ffa8 Level-0 table #24: 1041104 bytes OK
+2026/03/26-22:37:56.670 ffa8 Delete type=0 #19
+2026/03/26-22:37:56.910 ffa8 Compacting 1@1 + 1@2 files
+2026/03/26-22:37:57.036 ffa8 Generated table #25@1: 47681 keys, 2132890 bytes
+2026/03/26-22:37:57.036 ffa8 Compacted 1@1 + 1@2 files => 2132890 bytes
+2026/03/26-22:37:57.045 ffa8 compacted to: files[ 0 0 2 0 0 0 0 ]
+2026/03/26-22:37:57.046 ffa8 Delete type=2 #24
+2026/03/26-22:37:57.046 ffa8 Delete type=2 #21

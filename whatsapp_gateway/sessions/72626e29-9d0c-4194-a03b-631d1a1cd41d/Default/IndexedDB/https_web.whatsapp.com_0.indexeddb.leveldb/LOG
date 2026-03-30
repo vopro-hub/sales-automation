@@ -1,0 +1,24 @@
+2026/03/28-23:13:12.742 36110 Reusing MANIFEST /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/72626e29-9d0c-4194-a03b-631d1a1cd41d/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/28-23:13:12.742 36110 Recovering log #15
+2026/03/28-23:13:12.770 36110 Reusing old log /home/abaviawe/venv/sales_automator/whatsapp_gateway/sessions/72626e29-9d0c-4194-a03b-631d1a1cd41d/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000015.log 
+2026/03/28-23:13:12.770 36110 Delete type=2 #14
+2026/03/28-23:13:12.770 36110 Delete type=2 #16
+2026/03/28-23:13:43.656 36113 Level-0 table #20: started
+2026/03/28-23:13:43.680 36113 Level-0 table #20: 1084186 bytes OK
+2026/03/28-23:13:43.687 36113 Delete type=0 #15
+2026/03/28-23:13:43.691 36113 Compacting 1@1 + 1@2 files
+2026/03/28-23:13:43.751 36113 Generated table #21@1: 48539 keys, 2206276 bytes
+2026/03/28-23:13:43.757 36113 Generated table #22@1: 1930 keys, 48028 bytes
+2026/03/28-23:13:43.757 36113 Compacted 1@1 + 1@2 files => 2254304 bytes
+2026/03/28-23:13:43.765 36113 compacted to: files[ 0 0 2 0 0 0 0 ]
+2026/03/28-23:13:43.765 36113 Delete type=2 #20
+2026/03/28-23:13:43.765 36113 Delete type=2 #17
+2026/03/28-23:13:44.224 36113 Level-0 table #24: started
+2026/03/28-23:13:44.272 36113 Level-0 table #24: 1110758 bytes OK
+2026/03/28-23:13:44.281 36113 Delete type=0 #19
+2026/03/28-23:13:44.285 36113 Compacting 1@1 + 1@2 files
+2026/03/28-23:13:44.335 36113 Generated table #25@1: 47483 keys, 2168808 bytes
+2026/03/28-23:13:44.335 36113 Compacted 1@1 + 1@2 files => 2168808 bytes
+2026/03/28-23:13:44.342 36113 compacted to: files[ 0 0 2 0 0 0 0 ]
+2026/03/28-23:13:44.342 36113 Delete type=2 #24
+2026/03/28-23:13:44.342 36113 Delete type=2 #21
