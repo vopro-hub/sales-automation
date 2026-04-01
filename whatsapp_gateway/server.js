@@ -34,7 +34,7 @@ const SECRET = "super-secure-webhook-secret";
 /*
 SESSION STORAGE DIRECTORY
 */
-const SESSION_FOLDER = path.join(__dirname, "sessions");
+const SESSION_FOLDER = "/home/abaviawe/wpp-sessions";
 
 if (!fs.existsSync(SESSION_FOLDER)) {
   fs.mkdirSync(SESSION_FOLDER);
@@ -53,9 +53,11 @@ function randomDelay() {
   return new Promise((resolve) => setTimeout(resolve, delay));
 }
 
-
 let browserInstance = null;
 
+/*
+🔥 WARMUP BROWSER
+*/
 async function warmupWPP() {
   try {
     console.log("🔥 Starting persistent browser...");
@@ -63,12 +65,11 @@ async function warmupWPP() {
     browserInstance = await wppconnect.create({
       session: "engine",
       headless: true,
-      autoClose: 0, // ❗ NEVER CLOSE
+      autoClose: 0,
       useChrome: true,
       puppeteerOptions: {
         args: ["--no-sandbox", "--disable-setuid-sandbox"]
       },
-
       catchQR: () => {},
       statusFind: () => {}
     });
@@ -78,6 +79,98 @@ async function warmupWPP() {
   } catch (err) {
     console.error("❌ Warmup failed:", err.message);
   }
+}
+
+/*
+🔥 ATTACH LISTENERS (REUSABLE)
+*/
+function attachListeners(client, session) {
+
+  client.onStateChange((state) => {
+    console.log(`STATE (${session}):`, state);
+
+    if (state === "CONNECTED") {
+      sessions[session].connected = true;
+
+      axios.post("http://localhost:8000/api/whatsapp/connected/", {
+        session_id: session
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${sessions[session].token}`
+        }
+      }).catch(err => {
+        console.error("Failed to notify Django:", err.message);
+      });
+
+      sessions[session].qr = null;
+
+      io.emit(`connected:${session}`, {
+        connected: true
+      });
+
+      console.log("✅ WHATSAPP CONNECTED");
+    }
+
+    if (
+      state === "CONFLICT" ||
+      state === "UNPAIRED" ||
+      state === "UNLAUNCHED"
+    ) {
+      client.useHere();
+    }
+
+    // 🔥 AUTO RECONNECT
+    if (state === "DISCONNECTED") {
+      console.log(`♻️ Reconnecting session: ${session}`);
+      client.initialize();
+    }
+  });
+
+  client.onMessage(async (message) => {
+    try {
+      if (message.isGroupMsg) return;
+      if (!message.body) return;
+
+      const sender =
+        message.from ||
+        message.sender?.id ||
+        message.chatId ||
+        message.chat?.id;
+
+      if (!sender) {
+        console.log("⚠️ No sender found:", message);
+        return;
+      }
+
+      console.log("📩 INCOMING FROM:", sender);
+
+      const payload = {
+        session: session,
+        from: sender,
+        body: message.body,
+        isGroupMsg: message.isGroupMsg,
+      };
+
+      const signature = crypto
+        .createHmac("sha256", SECRET)
+        .update(JSON.stringify(payload))
+        .digest("hex");
+
+      const response = await axios.post(DJANGO_WEBHOOK, payload, {
+        headers: {
+          "X-WPP-Signature": signature,
+        },
+        timeout: 5000,
+      });
+
+      console.log("✅ DJANGO RESPONSE:", response.status);
+
+    } catch (err) {
+      console.error("❌ ERROR STATUS:", err.response?.status);
+      console.error("❌ ERROR DATA:", err.response?.data);
+    }
+  });
 }
 
 /*
@@ -94,7 +187,6 @@ app.post("/sessions/start", async (req, res) => {
     return res.json({ status: "session_already_running" });
   }
 
-  // 🔥 Respond immediately (prevents frontend hanging)
   res.json({ status: "starting" });
 
   try {
@@ -102,35 +194,32 @@ app.post("/sessions/start", async (req, res) => {
       client: null,
       qr: null,
       connected: false,
-      token: req.body.token 
+      token: req.body.token
     };
 
     const client = await wppconnect.create({
       session: session,
-      folderNameToken: SESSION_FOLDER,
+      folderNameToken: "tokens",
+      mkdirFolderToken: SESSION_FOLDER,
+      persistSession: true,
       headless: true,
       autoClose: 0,
-
       useChrome: true,
 
-      browserWSEndpoint: browserInstance?.puppeteer?.wsEndpoint?.(),
-
+      //browserWSEndpoint: browserInstance?.puppeteer?.wsEndpoint?.(),
+      createOptions: {
+        browserArgs: ["--no-sandbox", "--disable-setuid-sandbox"],
+        devtools: false,
+      },
       puppeteerOptions: {
-        args: ["--no-sandbox", "--disable-setuid-sandbox"]
+        userDataDir: path.join(SESSION_FOLDER, session),
       },
 
-      // ✅ ONLY QR HANDLER YOU NEED
       catchQR: async (qr) => {
         console.log("✅ QR RECEIVED");
         sessions[session].qr = qr;
 
         io.emit(`qr:${session}`, { qr });
-        //const QRCode = require("qrcode");
-        //const base64 = await QRCode.toDataURL(qr);
-
-        //sessions[session].qr = base64;
-
-        //io.emit(`qr:${session}`, { qr: base64 });
       },
 
       statusFind: (status) => {
@@ -142,96 +231,65 @@ app.post("/sessions/start", async (req, res) => {
 
     sessions[session].client = client;
 
-    /*
-    STATE CHANGE
-    */
-    client.onStateChange((state) => {
-      console.log(`STATE (${session}):`, state);
-
-      if (state === "CONNECTED") {
-        sessions[session].connected = true;
-        // 🔥 CALL DJANGO TO SAVE SESSION
-        axios.post("http://localhost:8000/api/whatsapp/connected/", {
-          session_id: session
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${sessions[session].token}`  // 🔥 THIS FIXES EVERYTHING
-          }
-        }
-      ).catch(err => {
-          console.error("Failed to notify Django:", err.message);
-        });
-        sessions[session].qr = null;
-
-        io.emit(`connected:${session}`, {
-          connected: true
-        });
-
-        console.log("✅ WHATSAPP CONNECTED");
-      }
-
-      if (
-        state === "CONFLICT" ||
-        state === "UNPAIRED" ||
-        state === "UNLAUNCHED"
-      ) {
-        client.useHere();
-      }
-    });
-
-    /*
-    INCOMING MESSAGES
-    */
-    client.onMessage(async (message) => {
-      try {
-        if (message.isGroupMsg) return;
-        if (!message.body) return;
-        
-        // ✅ ROBUST SENDER EXTRACTION
-        const sender =
-          message.from ||
-          message.sender?.id ||
-          message.chatId ||
-          message.chat?.id;
-    
-        if (!sender) {
-          console.log("⚠️ No sender found:", message);
-          return;
-        }
-        console.log("📩 INCOMING FROM:", sender);
-
-        const payload = {
-          session: session,
-          from: sender,
-          body: message.body,
-          isGroupMsg: message.isGroupMsg,
-        };
-
-        const signature = crypto
-          .createHmac("sha256", SECRET)
-          .update(JSON.stringify(payload))
-          .digest("hex");
-
-        const response = await axios.post(DJANGO_WEBHOOK, payload, {
-          headers: {
-            "X-WPP-Signature": signature,
-          },
-          timeout: 5000,
-        });
-        console.log("✅ DJANGO RESPONSE:", response.status);
-
-      } catch (err) {
-        console.error("❌ ERROR STATUS:", err.response?.status);
-        console.error("❌ ERROR DATA:", err.response?.data);
-      }
-    });
+    // 🔥 ATTACH LISTENERS
+    attachListeners(client, session);
 
   } catch (err) {
     console.error("Session start failed:", err);
     delete sessions[session];
   }
 });
+
+/*
+🔥 RESTORE SESSIONS (PERSISTENCE FIX)
+*/
+async function restoreSessions() {
+  try {
+    const storedSessions = fs.readdirSync(SESSION_FOLDER);
+
+    for (const session of storedSessions) {
+      console.log("🔄 Restoring session:", session);
+
+      sessions[session] = {
+        client: null,
+        qr: null,
+        connected: false,
+        token: null
+      };
+
+      const client = await wppconnect.create({
+        session: session,
+        folderNameToken: SESSION_FOLDER,
+        persistSession: true,
+        headless: true,
+        autoClose: 0,
+        useChrome: true,
+
+        //browserWSEndpoint: browserInstance?.puppeteer?.wsEndpoint?.(),
+
+        puppeteerOptions: {
+          userDataDir: path.join(SESSION_FOLDER, session),
+          args: ["--no-sandbox", "--disable-setuid-sandbox"]
+        },
+
+        catchQR: () => {},
+        statusFind: (status) => {
+          console.log(`RESTORE STATUS (${session}):`, status);
+        }
+      });
+
+      sessions[session].client = client;
+
+      // 🔥 REATTACH LISTENERS
+      attachListeners(client, session);
+
+      console.log("✅ Restored session:", session);
+    }
+
+  } catch (err) {
+    console.log("ℹ️ No sessions to restore");
+  }
+}
 
 /*
 GET QR
@@ -261,32 +319,24 @@ app.post("/messages/send", async (req, res) => {
     return res.status(404).json({ error: "Session not active" });
   }
 
-  const delay = Math.min(3000, message.length * 50);
+  const delay = Math.min(3000, message.length * 100);
 
   try {
     await randomDelay();
-    
-    // ✅ Ensure chat is initialized
+
     await s.client.sendSeen(to);
-
-    // ✅ Optional (makes it feel human)
     await s.client.startTyping(to);
-
-    // ✅ Small delay (important for stability)
     await new Promise(resolve => setTimeout(resolve, delay));
-
-    // ✅ ACTUAL SEND (this is the correct method)
     await s.client.sendText(to, message);
-
-    // ✅ STOP typing immediately after sending
     await s.client.stopTyping(to);
 
     console.log("✅ MESSAGE SENT");
 
     res.json({ status: "sent" });
+
   } catch (err) {
     console.error("Send message failed:", err);
-    // 🔥 Safety: ensure typing stops even on error
+
     try {
       await s.client.stopTyping(to);
     } catch (e) {}
@@ -307,6 +357,11 @@ START SERVER
 */
 server.listen(PORT, async () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
+
   await warmupWPP();
+
+  // 🔥 THIS IS THE KEY ADDITION
+  await restoreSessions();
+
   await browserInstance.getWAVersion();
 });

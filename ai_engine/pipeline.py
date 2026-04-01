@@ -6,7 +6,7 @@ from ai_engine.escalation import check_escalation
 from notifications.agent import notify_agent
 
 
-MAX_AI_MESSAGES = 20
+MAX_AI_MESSAGES = 50
 
 
 def handle_incoming_message(tenant, lead, message, session, agent):
